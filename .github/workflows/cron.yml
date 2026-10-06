@@ -3,7 +3,7 @@ name: Agente Automático de Noticias
 on:
   schedule:
     # Todos los días a las 12:17 UTC (7:17 am en Colombia)
-    - cron: '30 20 * * *'
+    - cron: '17 12 * * *'
   workflow_dispatch:
 
 jobs:
@@ -29,6 +29,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           DESTINATION_EMAIL: ${{ secrets.DESTINATION_EMAIL }}
+          # Opcional: remitente con dominio verificado en Resend
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
           # Opcionales: para enviar a cualquier persona usando tu Gmail
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
