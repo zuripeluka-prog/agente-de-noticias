@@ -1,0 +1,33 @@
+name: Agente Automático de Noticias
+ 
+on:
+  schedule:
+    # Todos los días a las 12:17 UTC (7:17 am en Colombia).
+    # Se evita el minuto :00 porque GitHub se satura a las horas en punto.
+    - cron: '17 12 * * *'
+  # Permite ejecutarlo manualmente desde la pestaña Actions
+  workflow_dispatch:
+ 
+jobs:
+  run-news-agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v4
+ 
+      - name: Configurar versión de Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+ 
+      - name: Instalar librerías
+        run: pip install -r requirements.txt
+ 
+      - name: Ejecutar script del Agente
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          DESTINATION_EMAIL: ${{ secrets.DESTINATION_EMAIL }}
+        run: python main.py
