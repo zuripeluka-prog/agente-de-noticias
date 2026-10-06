@@ -3,7 +3,7 @@ name: Agente Automático de Noticias
 on:
   schedule:
     # Todos los días a las 12:17 UTC (7:17 am en Colombia)
-    - cron: '17 12 * * *'
+    - cron: '5 21 * * *'
   workflow_dispatch:
 
 jobs:
