@@ -4,9 +4,10 @@ import resend
 from google import genai
 
 # 1. Configurar APIs con Variables de Entorno
-GEMINI_KEY = os.environ.get("AQ.Ab8RN6LXZ-yC3T5X_iZn6cE7cVwSc_ERYsEcPUvSY3McU7mIzQ")
-RESEND_KEY = os.environ.get("re_H1zVj8F7_A74Avx9BU7QdVLJrnBHEWH1J")
-DESTINATION_EMAIL = os.environ.get("alezulu1972@gmail.com")
+# 1. Configurar APIs con Variables de Entorno
+GEMINI_KEY = os.environ.get("GEMINI_API_KEY")
+RESEND_KEY = os.environ.get("RESEND_API_KEY")
+DESTINATION_EMAIL = os.environ.get("DESTINATION_EMAIL")
 
 # 2. Leer noticias desde RSS (Google News en español)
 rss_url = "https://news.google.com/rss?hl=es-419&gl=CO&ceid=CO:es-419"
