@@ -27,6 +27,7 @@ jobs:
  
       - name: Ejecutar script del Agente
         env:
+          PYTHONUNBUFFERED: "1"
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           DESTINATION_EMAIL: ${{ secrets.DESTINATION_EMAIL }}
