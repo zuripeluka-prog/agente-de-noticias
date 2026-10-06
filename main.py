@@ -18,8 +18,41 @@ DESTINATION_EMAIL = os.environ.get("DESTINATION_EMAIL")
 
 resend.api_key = RESEND_KEY
 
-# Modelos en orden de preferencia: si uno está saturado, se pasa al siguiente
-MODELOS = ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"]
+# Opcional: fijar modelos a mano con una variable de entorno, separados por coma
+# (ej: GEMINI_MODELS="gemini-3.6-flash,gemini-3.5-flash")
+MODELOS_MANUALES = [
+    m.strip() for m in os.environ.get("GEMINI_MODELS", "").split(",") if m.strip()
+]
+
+EXCLUIR = ("image", "live", "audio", "tts", "native", "embedding", "robotics", "computer")
+
+
+def obtener_modelos(client, maximo: int = 4) -> list[str]:
+    """Pregunta a la API qué modelos 'flash' existen hoy y devuelve los más nuevos."""
+    if MODELOS_MANUALES:
+        return MODELOS_MANUALES
+
+    candidatos = []
+    for m in client.models.list():
+        nombre = m.name.replace("models/", "")
+        acciones = getattr(m, "supported_actions", None) or []
+        if "flash" not in nombre or any(x in nombre for x in EXCLUIR):
+            continue
+        if acciones and "generateContent" not in acciones:
+            continue
+        version = re.search(r"gemini-(\d+(?:\.\d+)?)", nombre)
+        v = float(version.group(1)) if version else 0.0
+        es_lite = "lite" in nombre
+        es_preview = "preview" in nombre or "exp" in nombre
+        # Más nuevo primero; a igual versión: estable antes que preview, normal antes que lite
+        candidatos.append((-v, es_preview, es_lite, nombre))
+
+    candidatos.sort()
+    modelos = [c[3] for c in candidatos[:maximo]]
+    if not modelos:
+        raise RuntimeError("No se encontró ningún modelo flash disponible en la API.")
+    print(f"Modelos disponibles a probar: {modelos}")
+    return modelos
 
 
 def es_error_temporal(e: Exception) -> bool:
@@ -42,7 +75,7 @@ def llamar_modelo(client, modelo: str, prompt: str):
 def generar_resumen(client, prompt: str) -> str:
     """Prueba cada modelo (con reintentos); si todos fallan, lanza el último error."""
     ultimo_error = None
-    for modelo in MODELOS:
+    for modelo in obtener_modelos(client):
         try:
             print(f"Intentando con {modelo}...")
             response = llamar_modelo(client, modelo, prompt)
