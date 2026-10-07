@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Informe">
+<meta name="theme-color" content="#ffffff">
+<title>Informe Seguros</title>
+<style>
+:root{--white:#fff;--mist:#f5f5f7;--frost:#fafafc;--hair:#d6d6d6;--ctrl:#e6e6e8;--ink:#1d1d1f;--slate:#707070;--steel:#86868b;--link:#0066cc;--blue:#0071e3;--orange:#b64400;
+--disp:"SF Pro Display",-apple-system,BlinkMacSystemFont,Inter,"Helvetica Neue",Arial,sans-serif;--text:"SF Pro Text",-apple-system,BlinkMacSystemFont,Inter,"Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--white);color:var(--ink);font:400 17px/1.47 var(--text);letter-spacing:-.374px;-webkit-font-smoothing:antialiased;padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+button,input,select{font:inherit;color:inherit;letter-spacing:inherit}
+.gnav{height:44px;display:flex;align-items:center;justify-content:center;font-size:12px;letter-spacing:-.12px;color:rgba(0,0,0,.8);padding-top:env(safe-area-inset-top,0px);box-sizing:content-box}
+.local{position:sticky;top:0;z-index:5;background:var(--white);border-bottom:1px solid var(--hair);padding-top:env(safe-area-inset-top,0px)}
+.local>div{max-width:980px;margin:auto;height:52px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ttl{font:600 19px/1.21 var(--disp);letter-spacing:.228px}
+.pill{border-radius:9999px;font-size:12px;line-height:16px;letter-spacing:-.12px;padding:6px 14px;cursor:pointer;white-space:nowrap}
+.out{background:transparent;border:1px solid var(--steel)}
+.fill{background:var(--blue);border:1px solid var(--blue);color:#fff}
+.pill:disabled{background:var(--ctrl);border-color:var(--ctrl);color:var(--steel);cursor:default}
+.wrap{max-width:980px;margin:auto;padding:0 20px}
+.hero{text-align:center;padding:64px 0 52px}
+.kick{font:600 21px/1 var(--disp);letter-spacing:.231px}
+h1,h2{font-family:var(--disp);font-weight:600;margin:0}
+h1{font-size:clamp(44px,11vw,80px);line-height:1.05;letter-spacing:-1.2px;margin-top:12px}
+h2{font-size:clamp(30px,6vw,40px);line-height:1.05}
+.sub{color:var(--slate);margin:16px auto 0;max-width:560px}
+#hora{display:block;margin:32px auto 0;border:0;background:transparent;text-align:center;font:600 clamp(56px,16vw,112px)/1 var(--disp);letter-spacing:-1.2px;width:100%;cursor:pointer}
+#hora:focus{outline:none}
+.row{display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;margin-top:20px}
+select{background:var(--white);border:1px solid var(--steel);border-radius:980px;padding:8px 16px;font-size:14px;letter-spacing:-.224px}
+.sw{display:inline-flex;align-items:center;gap:10px;font-size:14px;letter-spacing:-.224px;cursor:pointer}
+.sw input{display:none}
+.sw i{width:51px;height:31px;border-radius:31px;background:var(--ctrl);position:relative;transition:.2s;flex:none}
+.sw i:after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked+i{background:var(--ink)}
+.sw input:checked+i:after{left:22px}
+.band{background:var(--mist);padding:64px 0}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:28px}
+.lnk{color:var(--link);background:none;border:0;cursor:pointer;font-size:17px;padding:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.card{background:var(--white);border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.card .n{color:var(--orange);font:600 12px/16px var(--text);letter-spacing:-.12px}
+.card h3{font:600 24px/1.2 var(--disp);margin:0}
+.card p{margin:0;color:var(--slate);font-size:14px;line-height:1.29;letter-spacing:-.224px;flex:1}
+.step{display:flex;align-items:center;gap:20px;font:600 40px/1 var(--disp)}
+.step button{width:36px;height:36px;border-radius:50%;border:1px solid var(--steel);background:none;cursor:pointer;font-size:20px;line-height:1}
+.ed{padding:90px 0}
+.ed p{max-width:520px;margin:16px 0 28px}
+.inp{display:flex;gap:12px;max-width:520px}
+.inp input{flex:1;min-width:0;background:var(--white);border:1px solid var(--steel);border-radius:980px;padding:10px 24px;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{background:var(--mist);border-radius:36px;padding:6px 8px 6px 16px;font-size:14px;letter-spacing:-.224px;display:flex;align-items:center;gap:8px}
+.chip button{border:0;background:var(--ctrl);border-radius:50%;width:22px;height:22px;cursor:pointer;line-height:1;color:var(--slate)}
+.list{background:var(--white);border-radius:28px;padding:8px 28px}
+.li{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--ctrl);font-size:14px;letter-spacing:-.224px}
+.li:last-child{border:0}
+.li small{display:block;color:var(--slate);font-size:12px}
+.err{color:var(--orange);font-weight:600;font-size:12px}
+.ok{color:var(--slate);font-size:12px}
+footer{background:var(--mist);border-top:1px solid var(--hair);padding:20px 0;font-size:12px;letter-spacing:-.12px;color:var(--slate)}
+.call{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--white);border-radius:28px;box-shadow:rgb(230,230,232) 0 0 0 1px;padding:12px 12px 12px 24px;display:none;align-items:center;gap:16px;font:600 14px/1.2 var(--text);letter-spacing:-.224px;z-index:9;max-width:calc(100% - 32px)}
+.call.on{display:flex}
+#login{display:none;min-height:70vh}
+.fm{display:flex;flex-direction:column;gap:12px;max-width:340px;margin:32px auto 0}
+.fm input{background:var(--white);border:1px solid var(--steel);border-radius:980px;padding:12px 24px;font-size:14px}
+.fm .pill{padding:12px;font-size:14px}
+.demo{background:var(--mist);text-align:center;font-size:12px;padding:8px 20px;color:var(--slate);letter-spacing:-.12px}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="gnav">Informe Seguros · Panel de control</div>
+<div id="demo" class="demo hide">Modo demostración: los cambios se guardan solo en este navegador. Conecta Supabase para activarlo de verdad.</div>
+
+<section id="login" class="wrap hero">
+  <div class="kick">Informe Seguros</div>
+  <h1>Inicia sesión</h1>
+  <p class="sub">Accede para configurar tu informe diario.</p>
+  <div class="fm">
+    <input id="em" type="email" placeholder="Correo" autocomplete="username">
+    <input id="pw" type="password" placeholder="Contraseña" autocomplete="current-password">
+    <button class="pill fill" id="entrar">Entrar</button>
+    <div id="lerr" class="err"></div>
+  </div>
+</section>
+
+<main id="app" class="hide">
+<div class="local"><div>
+  <span class="ttl">Informe Seguros</span>
+  <span style="display:flex;gap:8px">
+    <button class="pill out" id="salir">Salir</button>
+    <button class="pill fill" id="ahora">Enviar ahora</button>
+  </span>
+</div></div>
+
+<section class="wrap hero">
+  <div class="kick">Envío diario</div>
+  <h1>Llega a la hora que elijas.</h1>
+  <input id="hora" type="time" aria-label="Hora de envío">
+  <p class="sub" id="resumen"></p>
+  <div class="row">
+    <select id="zona" aria-label="Zona horaria">
+      <option value="America/Caracas">Venezuela (UTC-4)</option>
+      <option value="America/Bogota">Colombia (UTC-5)</option>
+      <option value="America/Mexico_City">México (UTC-6)</option>
+      <option value="America/Santiago">Chile</option>
+      <option value="America/Argentina/Buenos_Aires">Argentina (UTC-3)</option>
+      <option value="Europe/Madrid">España</option>
+    </select>
+    <label class="sw"><input type="checkbox" id="activo"><i></i>Envío automático</label>
+  </div>
+</section>
+
+<section class="band"><div class="wrap">
+  <div class="head"><h2>Temas</h2><button class="lnk" id="todos">Activar todos</button></div>
+  <div class="grid" id="temas"></div>
+  <div class="grid" style="margin-top:20px"><div class="card">
+    <span class="n">Extensión</span><h3>Noticias por tema</h3>
+    <p>Cuántas noticias resumidas recibes en cada sección.</p>
+    <div class="step"><button id="menos" aria-label="Menos">−</button><span id="nn">9</span><button id="mas" aria-label="Más">+</button></div>
+  </div></div>
+</div></section>
+
+<section class="ed"><div class="wrap">
+  <div class="kick">Destinatarios</div>
+  <h2 style="margin-top:12px">¿Quién recibe el informe?</h2>
+  <p>Cada persona recibe su propio correo. Añade o quita direcciones cuando quieras.</p>
+  <div class="inp"><input id="mail" type="email" placeholder="correo@ejemplo.com"><button class="pill out" id="add">Añadir</button></div>
+  <div class="chips" id="chips"></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <div class="head"><h2>Historial</h2><button class="lnk" id="rec">Actualizar</button></div>
+  <div class="list" id="hist"></div>
+</div></section>
+
+<footer><div class="wrap">Informe generado con IA a partir de noticias públicas. Verifica las cifras en cada fuente.</div></footer>
+</main>
+
+<div class="call" id="call"><span id="cmsg">Cambios sin guardar</span><button class="pill fill" id="guardar">Guardar</button></div>
+
+<script>
+// ====== CONFIGURACIÓN: pega aquí los datos de tu proyecto de Supabase ======
+const SUPABASE_URL = "https://sbpjxppzghnlfdbmqspl.supabase.co";      // ej: https://abcd1234.supabase.co
+const SUPABASE_KEY = "sb_publishable_kz-WKq0817GdM5s0J9JbWw_ccUPIQ0R"; // la clave "anon public" (es segura de publicar)
+// ===========================================================================
+const DEMO = SUPABASE_URL.startsWith("TU_");
+const TEMAS = [
+  {id:"t1",t:"Adquisiciones y estrategia",d:"Fusiones, inversiones y movimientos de aseguradoras y reaseguradoras de primera línea."},
+  {id:"t2",t:"Clima y catástrofes",d:"Qué analizan las aseguradoras sobre eventos climáticos y su impacto en riesgo y reaseguro."},
+  {id:"t3",t:"Tecnología y riesgo",d:"Casos prácticos de IA, modelación y seguros paramétricos en la gestión de riesgos."}
+];
+const $ = s => document.querySelector(s);
+const DEF = {activo:true,hora:"17:00",zona:"America/Caracas",destinatarios:[],temas:{t1:true,t2:true,t3:true},noticias_por_tema:9};
+let cfg = {...DEF}, dirty = false, sess = JSON.parse(localStorage.getItem("sess")||"null");
+
+// ---------- capa de datos ----------
+async function rq(path, opt={}, retry=true){
+  const h = {apikey:SUPABASE_KEY, Authorization:"Bearer "+(sess?sess.access_token:SUPABASE_KEY), "Content-Type":"application/json", ...(opt.headers||{})};
+  const r = await fetch(SUPABASE_URL+path, {...opt, headers:h});
+  if(r.status===401 && sess && retry && await refresh()) return rq(path,opt,false);
+  if(!r.ok) throw new Error((await r.text())||r.status);
+  return r.status===204 ? null : r.json().catch(()=>null);
+}
+async function auth(body, grant){
+  const r = await fetch(SUPABASE_URL+"/auth/v1/token?grant_type="+grant,{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify(body)});
+  if(!r.ok) return null;
+  sess = await r.json(); localStorage.setItem("sess",JSON.stringify(sess)); return sess;
+}
+const refresh = async () => sess && sess.refresh_token ? !!(await auth({refresh_token:sess.refresh_token},"refresh_token")) : false;
+const api = DEMO ? {
+  get: async()=>JSON.parse(localStorage.getItem("cfg")||"null")||{...DEF},
+  save: async c=>localStorage.setItem("cfg",JSON.stringify(c)),
+  hist: async()=>JSON.parse(localStorage.getItem("hist")||"[]"),
+  now: async()=>{const h=JSON.parse(localStorage.getItem("hist")||"[]");h.unshift({creado:new Date().toISOString(),estado:"demo",detalle:"Envío simulado"});localStorage.setItem("hist",JSON.stringify(h.slice(0,8)))}
+} : {
+  get: async()=>(await rq("/rest/v1/config?id=eq.1&select=*"))[0]||{...DEF},
+  save: c=>rq("/rest/v1/config?id=eq.1",{method:"PATCH",headers:{Prefer:"return=minimal"},body:JSON.stringify(c)}),
+  hist: ()=>rq("/rest/v1/envios?select=*&order=creado.desc&limit=8"),
+  now: ()=>rq("/functions/v1/enviar-ahora",{method:"POST",body:"{}"})
+};
+
+// ---------- interfaz ----------
+function fmt12(h){const [H,M]=h.split(":").map(Number);return ((H%12)||12)+":"+String(M).padStart(2,"0")+(H<12?" a. m.":" p. m.")}
+function render(){
+  $("#hora").value = cfg.hora; $("#zona").value = cfg.zona; $("#activo").checked = cfg.activo;
+  $("#nn").textContent = cfg.noticias_por_tema;
+  const z = $("#zona").selectedOptions[0]; 
+  $("#resumen").textContent = cfg.activo ? `Se enviará todos los días a las ${fmt12(cfg.hora)} (${z?z.text:cfg.zona}).` : "El envío automático está en pausa.";
+  $("#temas").innerHTML = "";
+  TEMAS.forEach((t,i)=>{
+    const c = document.createElement("div"); c.className="card";
+    c.innerHTML = `<span class="n">Tema ${i+1}</span><h3></h3><p></p><label class="sw"><input type="checkbox"><i></i><span>Incluir en el informe</span></label>`;
+    c.querySelector("h3").textContent=t.t; c.querySelector("p").textContent=t.d;
+    const cb=c.querySelector("input"); cb.checked=!!cfg.temas[t.id];
+    cb.onchange=()=>{cfg.temas[t.id]=cb.checked;mark()};
+    $("#temas").append(c);
+  });
+  $("#chips").innerHTML = "";
+  cfg.destinatarios.forEach((m,i)=>{
+    const c=document.createElement("span"); c.className="chip"; c.append(m);
+    const b=document.createElement("button"); b.textContent="✕"; b.setAttribute("aria-label","Quitar "+m);
+    b.onclick=()=>{cfg.destinatarios.splice(i,1);mark();render()}; c.append(b); $("#chips").append(c);
+  });
+}
+function mark(){dirty=true;$("#cmsg").textContent="Cambios sin guardar";$("#guardar").classList.remove("hide");$("#call").classList.add("on");$("#resumen").textContent=$("#resumen").textContent}
+function say(t){$("#cmsg").textContent=t;$("#guardar").classList.add("hide");$("#call").classList.add("on");setTimeout(()=>{if(!dirty)$("#call").classList.remove("on")},3500)}
+async function loadHist(){
+  const box=$("#hist"); 
+  try{
+    const h=await api.hist(); box.innerHTML="";
+    if(!h.length){box.innerHTML='<div class="li"><span class="ok">Aún no hay envíos.</span></div>';return}
+    h.forEach(e=>{
+      const d=document.createElement("div"); d.className="li";
+      const f=new Date(e.creado).toLocaleString("es",{dateStyle:"medium",timeStyle:"short"});
+      const bad=e.estado==="error";
+      d.innerHTML=`<span><span class="t"></span><small></small></span><span class="${bad?"err":"ok"}"></span>`;
+      d.querySelector(".t").textContent=f; d.querySelector("small").textContent=e.detalle||"";
+      d.lastChild.textContent=bad?"Fallido":(e.estado==="demo"?"Simulado":"Enviado"); box.append(d);
+    });
+  }catch(e){box.innerHTML='<div class="li"><span class="err">No se pudo cargar el historial.</span></div>'}
+}
+async function start(){
+  $("#login").style.display="none"; $("#app").classList.remove("hide");
+  try{cfg={...DEF,...(await api.get())}}catch(e){say("No se pudo cargar tu configuración")}
+  render(); loadHist();
+}
+function showLogin(){$("#app").classList.add("hide");$("#login").style.display="block"}
+
+$("#hora").onchange=e=>{cfg.hora=e.target.value||cfg.hora;mark();render()};
+$("#zona").onchange=e=>{cfg.zona=e.target.value;mark();render()};
+$("#activo").onchange=e=>{cfg.activo=e.target.checked;mark();render()};
+$("#todos").onclick=()=>{TEMAS.forEach(t=>cfg.temas[t.id]=true);mark();render()};
+$("#menos").onclick=()=>{cfg.noticias_por_tema=Math.max(4,cfg.noticias_por_tema-1);mark();render()};
+$("#mas").onclick=()=>{cfg.noticias_por_tema=Math.min(15,cfg.noticias_por_tema+1);mark();render()};
+function addMail(){
+  const m=$("#mail").value.trim().toLowerCase();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){say("Escribe un correo válido");return}
+  if(!cfg.destinatarios.includes(m)){cfg.destinatarios.push(m);mark();render()}
+  $("#mail").value="";
+}
+$("#add").onclick=addMail; $("#mail").onkeydown=e=>{if(e.key==="Enter")addMail()};
+$("#guardar").onclick=async()=>{
+  try{await api.save({activo:cfg.activo,hora:cfg.hora,zona:cfg.zona,destinatarios:cfg.destinatarios,temas:cfg.temas,noticias_por_tema:cfg.noticias_por_tema});dirty=false;say("Cambios guardados")}
+  catch(e){say("No se pudo guardar")}
+};
+$("#ahora").onclick=async()=>{
+  const b=$("#ahora"); b.disabled=true;
+  try{await api.now();say("Envío solicitado. Llegará en unos minutos.");setTimeout(loadHist,4000)}
+  catch(e){say("No se pudo solicitar el envío")}
+  b.disabled=false;
+};
+$("#rec").onclick=loadHist;
+$("#salir").onclick=()=>{localStorage.removeItem("sess");sess=null;if(DEMO){location.reload()}else showLogin()};
+$("#entrar").onclick=async()=>{
+  $("#lerr").textContent="";
+  const s=await auth({email:$("#em").value.trim(),password:$("#pw").value},"password");
+  if(s) start(); else $("#lerr").textContent="Correo o contraseña incorrectos";
+};
+$("#pw").onkeydown=e=>{if(e.key==="Enter")$("#entrar").click()};
+window.addEventListener("beforeunload",e=>{if(dirty){e.preventDefault()}});
+
+if(DEMO){$("#demo").classList.remove("hide");start()}
+else if(sess){start()}
+else showLogin();
+</script>
+</body>
+</html>
