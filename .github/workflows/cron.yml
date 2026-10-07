@@ -2,9 +2,19 @@ name: Agente Automático de Noticias
 
 on:
   schedule:
-    # Todos los días a las 12:17 UTC (7:17 am en Colombia)
-    - cron: '00 8 * * *'
+    # Revisa cada 15 minutos si toca enviar. La hora real la decide tu panel.
+    - cron: '*/15 * * * *'
   workflow_dispatch:
+    inputs:
+      forzar:
+        description: 'Enviar el informe ahora, sin esperar la hora programada'
+        required: false
+        default: 'true'
+
+# Evita que dos ejecuciones se pisen y manden el correo dos veces
+concurrency:
+  group: informe-diario
+  cancel-in-progress: false
 
 jobs:
   run-news-agent:
@@ -26,12 +36,14 @@ jobs:
       - name: Ejecutar script del Agente
         env:
           PYTHONUNBUFFERED: "1"
+          FORZAR: ${{ github.event.inputs.forzar }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           DESTINATION_EMAIL: ${{ secrets.DESTINATION_EMAIL }}
-          # Opcional: remitente con dominio verificado en Resend
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
-          # Opcionales: para enviar a cualquier persona usando tu Gmail
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          # Panel de control
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python main.py
